@@ -111,7 +111,7 @@ function saveImage()
 			System.closeFile(new)
 		else
 			local fullExt = string.lower(string.match(fullUrl,"%.[%a%d]+$"))
-			Network.downloadFile(fullUrl, saveFolder .. "/" .. currentId .. fullExt)
+			Network.downloadFile(fullUrl, saveFolder .. "/" .. currentId .. fullExt, '{"Referer":"https://gelbooru.com/"}')
 		end
 		return id, "Saved | " .. currentId .. ".jpg", 1
 	else	
@@ -184,7 +184,7 @@ function getmiku()
 	end
 		
 	if Network.isWifiEnabled() then
-		Network.downloadFile("https://gelbooru.com/index.php?limit=1&page=dapi&s=post&q=index&json=1&api_key=555842be37543df895e7d5a67e7df685f7dac14ffbc9f7490e91f32e0d88381a317f7f6064ea52fbe4117eb8acfcc96546d6bcb46001c1fce096adf8415a9df5&user_id=1898149&tags=hatsune_miku+-furry+-animal_ears+sort:random+highres+"..ratingURL, dataFolder.."/post.json") 
+		Network.downloadFile("https://gelbooru.com/index.php?limit=1&page=dapi&s=post&q=index&json=1&api_key=555842be37543df895e7d5a67e7df685f7dac14ffbc9f7490e91f32e0d88381a317f7f6064ea52fbe4117eb8acfcc96546d6bcb46001c1fce096adf8415a9df5&user_id=1898149&tags=hatsune_miku+-furry+-animal_ears+sort:random+highres+"..ratingURL, dataFolder.."/post.json", '{"Referer":"https://gelbooru.com/"}') 
 		local file1 = System.openFile(dataFolder.."/post.json", FREAD)
 		local size1 = System.sizeFile(file1)
 		local jsonEncoded = System.readFile(file1, size1)					-- Encoded JSON file data
@@ -212,7 +212,7 @@ function getmiku()
 		end
 		
 		currentId = jsonDecoded["post"][1]["id"] 
-		Network.downloadFile(url, dataFolder.."/MikuVU.jpg")
+		Network.downloadFile(url, dataFolder.."/MikuVU.jpg", '{"Referer":"https://gelbooru.com/"}')
 		local file2 = System.openFile(dataFolder.."/MikuVU.jpg", FREAD)
 		size2 = System.sizeFile(file2)
 		if size2 == 0 then
